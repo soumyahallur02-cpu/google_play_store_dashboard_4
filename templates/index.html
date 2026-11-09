@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Play Store Analytics Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="dashboard-container">
+        <header class="dashboard-header">
+            <div>
+                <h1>Google Play Store Analytics</h1>
+                <p class="subtitle">Cumulative Installs Over Time by Category (Filtered Dataset)</p>
+            </div>
+            <div class="time-badge" id="timeBadge">
+                Checking IST Window...
+            </div>
+        </header>
+
+        <!-- Dynamic Time Gate Banner -->
+        <div id="gateMessage" class="gate-card hidden">
+            <div class="gate-icon">⏰</div>
+            <h2>Dashboard Restrictions Active</h2>
+            <p>This visualization is strictly restricted to display only between <strong>4:00 PM IST and 6:00 PM IST</strong>.</p>
+            <p class="current-time-txt">Current Time: <span id="clockTime">--:--:-- IST</span></p>
+            <button class="override-btn" onclick="toggleOverride()">Toggle Demo Mode (Bypass IST Window)</button>
+        </div>
+
+        <!-- Main Chart Section -->
+        <main id="chartSection" class="chart-card hidden">
+            <div class="chart-header">
+                <div>
+                    <h2>Cumulative App Installs by Category</h2>
+                    <p class="filter-summary">
+                        ⚡ Filters Applied: Rating &ge; 4.2 | Reviews &gt; 1,000 | Size 20MB–80MB | Category 'T' or 'P' | Name without numbers
+                    </p>
+                </div>
+                <div class="legend-info">
+                    <span class="pulse-dot"></span> MoM Increase &gt; 25% Highlighted
+                </div>
+            </div>
+            <div class="chart-wrapper">
+                <canvas id="stackedAreaChart"></canvas>
+            </div>
+            
+            <div class="legend-translation-grid">
+                <h3>Translated Category Legend Reference</h3>
+                <div class="grid-container">
+                    <div class="legend-item"><span class="color-box cat-travel"></span> <strong>Voyage et local</strong> (Travel & Local - French)</div>
+                    <div class="legend-item"><span class="color-box cat-prod"></span> <strong>Productividad</strong> (Productivity - Spanish)</div>
+                    <div class="legend-item"><span class="color-box cat-photo"></span> <strong>写真</strong> (Photography - Japanese)</div>
+                    <div class="legend-item"><span class="color-box cat-tools"></span> <strong>Tools</strong></div>
+                    <div class="legend-item"><span class="color-box cat-person"></span> <strong>Personalization</strong></div>
+                    <div class="legend-item"><span class="color-box cat-parent"></span> <strong>Parenting</strong></div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/chart.js') }}"></script>
+</body>
+</html>
